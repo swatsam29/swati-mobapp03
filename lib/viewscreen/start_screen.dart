@@ -20,10 +20,12 @@ class _StartState extends State<StartScreen> {
   void initState() {
     super.initState();
     con = _Controller(this);
+    print('************ StartScreen: initState()');
   }
 
   @override
   Widget build(BuildContext context) {
+    print('************ StartScreen: build()');
     return Scaffold(
         appBar: AppBar(
           title: const Text('Start Screen'),
@@ -35,7 +37,13 @@ class _StartState extends State<StartScreen> {
               child: const Text('Counter Demo'),
             ),
           ],
-        ));
+        ),
+        );
+  }
+  @override
+  void dispose() {
+    print('************ StartScreen: dispose()');
+    super.dispose();
   }
 }
 
