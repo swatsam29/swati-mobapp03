@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lesson2/model/course.dart';
 import 'package:lesson2/viewscreen/cardlist_screen.dart';
 import 'package:lesson2/viewscreen/counterdemo_screen.dart';
+import 'package:lesson2/viewscreen/listview_screen.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({Key? key}) : super(key: key);
@@ -41,6 +42,10 @@ class _StartState extends State<StartScreen> {
             onPressed: con.cardlistDemo,
             child: const Text('Card list Demo'),
           ),
+          ElevatedButton(
+            onPressed: con.listViewDemo,
+            child: const Text('ListView Demo'),
+          ),
         ],
       ),
     );
@@ -65,6 +70,13 @@ class _Controller {
     Navigator.pushNamed(
       state.context,
       CardListScreen.routeName,
+      arguments: courseList,
+    );
+  }
+  void listViewDemo() {
+    Navigator.pushNamed(
+      state.context,
+      ListViewScreen.routeName,
       arguments: courseList,
     );
   }

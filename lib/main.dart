@@ -4,6 +4,7 @@ import 'package:lesson2/viewscreen/cardlist_screen.dart';
 import 'package:lesson2/viewscreen/counterdemo_screen.dart';
 import 'package:lesson2/viewscreen/error_screen.dart';
 import 'package:lesson2/viewscreen/lifecycle_screen.dart';
+import 'package:lesson2/viewscreen/listview_screen.dart';
 import 'package:lesson2/viewscreen/start_screen.dart';
 
 void main() {
@@ -28,7 +29,15 @@ class Lesson2App extends StatelessWidget {
          if (args!= null){
            return CardListScreen(args as List<Course>);
          } else {
-           return ErrorScreen('argument is null at Carlist'); 
+           return ErrorScreen('argument is null at Cardlist'); 
+         }
+        },
+        ListViewScreen.routeName:(context) {
+         Object? args = ModalRoute.of(context)?.settings.arguments;
+         if (args!= null){
+           return ListViewScreen(args as List<Course>);
+         } else {
+           return ErrorScreen('argument is null at ListViewScreen'); 
          }
         }
       },
