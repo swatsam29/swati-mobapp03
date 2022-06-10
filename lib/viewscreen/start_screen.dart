@@ -51,6 +51,8 @@ class _StartState extends State<StartScreen> {
                     ),
                     keyboardType: TextInputType.emailAddress,
                     autocorrect: false,
+                    validator: con.validateEmail,
+                    onSaved: con.saveEmail,
                   ),
                   TextFormField(
                     decoration: const InputDecoration(
@@ -59,10 +61,20 @@ class _StartState extends State<StartScreen> {
                     ),
                     obscureText: true,
                     autocorrect: false,
+                    validator: con.validatePassword,
+                    onSaved: con.savePassword,
+                  ),
+                  ElevatedButton(
+                    onPressed: con.signin,
+                    child: Text(
+                      'Sign In',
+                      style: Theme.of(context).textTheme.button,
+                    ),
                   ),
                 ],
               ),
             ),
+            const SizedBox(height: 25.0,),
             ElevatedButton(
               onPressed: con.counterDemo,
               child: const Text('Counter Demo'),
@@ -91,6 +103,47 @@ class _StartState extends State<StartScreen> {
 class _Controller {
   late _StartState state;
   _Controller(this.state);
+  String? email;
+  String? password;
+
+  void signin(){
+    FormState? currentState = state.formkey.currentState;
+    if (currentState == null) return;
+    if (!currentState.validate()) return;
+    currentState.save();
+    print('+++++++++ $email $password');
+  }
+  
+  void saveEmail(String? value){
+    email = value;
+  }
+
+  void savePassword(String? value){
+    password = value;
+  }
+
+
+    String? validateEmail(String? value){
+      if (value == null || value.isEmpty){
+        return 'No email provided';
+      }
+      else if(!(value.contains('@')&& value.contains('.'))){
+        return 'Not valid email address';
+      }else{
+        return null;
+      }
+    }
+    String? validatePassword(String? value){
+      if (value == null || value.isEmpty){
+        return 'No password provided';
+      }
+      else if(value.length < 6){
+        return 'Password too short';
+      }else{
+        return null;
+      }
+    }
+  
 
   void counterDemo() {
     Navigator.pushNamed(state.context, CounterDemoScreen.routeName);
