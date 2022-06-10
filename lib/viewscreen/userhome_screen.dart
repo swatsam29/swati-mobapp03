@@ -73,11 +73,12 @@ class _Controller {
     Navigator.of(state.context).pop();
   }
 
-  void profile() {
-    Navigator.pushNamed(
+  void profile() async{
+    await Navigator.pushNamed(
       state.context,
       ProfileScreen.routeName,
       arguments: state.widget.user,
     );
+    state.render((){});
   }
 }
