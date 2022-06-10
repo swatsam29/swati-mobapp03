@@ -32,7 +32,17 @@ class _ListViewState extends State<ListViewScreen> {
         title: const Text('List View Demo Screen'),
       ),
       body: ListView.builder(
-        itemBuilder: itemBuilder,
+        itemCount: widget.allCourses.length,
+        itemBuilder: (BuildContext context, int index){
+          return Container(
+            color: Colors.lime[100],
+            margin: const EdgeInsets.all(10.0),
+            child: ListTile(
+            title: Text(widget.allCourses[index].number),
+            subtitle: Text(widget.allCourses[index].title),
+          ),
+          );
+        },
       ),
     );
   }
