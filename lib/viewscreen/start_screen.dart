@@ -17,6 +17,7 @@ class StartScreen extends StatefulWidget {
 
 class _StartState extends State<StartScreen> {
   late _Controller con;
+  var formkey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -32,21 +33,50 @@ class _StartState extends State<StartScreen> {
       appBar: AppBar(
         title: const Text('Start Screen'),
       ),
-      body: Column(
-        children: [
-          ElevatedButton(
-            onPressed: con.counterDemo,
-            child: const Text('Counter Demo'),
-          ),
-          ElevatedButton(
-            onPressed: con.cardlistDemo,
-            child: const Text('Card list Demo'),
-          ),
-          ElevatedButton(
-            onPressed: con.listViewDemo,
-            child: const Text('ListView Demo'),
-          ),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Text(
+              'Sign In, Please!',
+              style: Theme.of(context).textTheme.headline4,
+            ),
+            Form(
+              key: formkey,
+              child: Column(
+                children: [
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      icon: Icon(Icons.email),
+                      hintText: 'Enter email',
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    autocorrect: false,
+                  ),
+                  TextFormField(
+                    decoration: const InputDecoration(
+                      icon: Icon(Icons.lock),
+                      hintText: 'Enter Password',
+                    ),
+                    obscureText: true,
+                    autocorrect: false,
+                  ),
+                ],
+              ),
+            ),
+            ElevatedButton(
+              onPressed: con.counterDemo,
+              child: const Text('Counter Demo'),
+            ),
+            ElevatedButton(
+              onPressed: con.cardlistDemo,
+              child: const Text('Card list Demo'),
+            ),
+            ElevatedButton(
+              onPressed: con.listViewDemo,
+              child: const Text('ListView Demo'),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -73,6 +103,7 @@ class _Controller {
       arguments: courseList,
     );
   }
+
   void listViewDemo() {
     Navigator.pushNamed(
       state.context,
