@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lesson2/model/course.dart';
+import 'package:lesson2/model/user_record.dart';
 import 'package:lesson2/viewscreen/cardlist_screen.dart';
 import 'package:lesson2/viewscreen/counterdemo_screen.dart';
 import 'package:lesson2/viewscreen/listview_screen.dart';
+import 'package:lesson2/viewscreen/userhome_screen.dart';
+import 'package:lesson2/viewscreen/view/view_util.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({Key? key}) : super(key: key);
@@ -74,7 +77,9 @@ class _StartState extends State<StartScreen> {
                 ],
               ),
             ),
-            const SizedBox(height: 25.0,),
+            const SizedBox(
+              height: 25.0,
+            ),
             ElevatedButton(
               onPressed: con.counterDemo,
               child: const Text('Counter Demo'),
@@ -106,44 +111,57 @@ class _Controller {
   String? email;
   String? password;
 
-  void signin(){
+  void signin() {
     FormState? currentState = state.formkey.currentState;
     if (currentState == null) return;
     if (!currentState.validate()) return;
     currentState.save();
     print('+++++++++ $email $password');
+
+    UserRecord userInfo = fakeDB.firstWhere(
+      (e) => e.email == email && e.password == password,
+      orElse: () => UserRecord(),
+    );
+
+    if (userInfo.email == ''){
+      showSnackBar(
+      context: state.context, 
+      message: 'Authentication failed. Incorrect email/password',
+      );
+    }else{
+      Navigator.pushNamed(state.context, UserHomeScreen.routeName, arguments: userInfo);
+    }
+
+    
   }
-  
-  void saveEmail(String? value){
+
+  void saveEmail(String? value) {
     email = value;
   }
 
-  void savePassword(String? value){
+  void savePassword(String? value) {
     password = value;
   }
 
+  String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'No email provided';
+    } else if (!(value.contains('@') && value.contains('.'))) {
+      return 'Not valid email address';
+    } else {
+      return null;
+    }
+  }
 
-    String? validateEmail(String? value){
-      if (value == null || value.isEmpty){
-        return 'No email provided';
-      }
-      else if(!(value.contains('@')&& value.contains('.'))){
-        return 'Not valid email address';
-      }else{
-        return null;
-      }
+  String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'No password provided';
+    } else if (value.length < 6) {
+      return 'Password too short';
+    } else {
+      return null;
     }
-    String? validatePassword(String? value){
-      if (value == null || value.isEmpty){
-        return 'No password provided';
-      }
-      else if(value.length < 6){
-        return 'Password too short';
-      }else{
-        return null;
-      }
-    }
-  
+  }
 
   void counterDemo() {
     Navigator.pushNamed(state.context, CounterDemoScreen.routeName);
