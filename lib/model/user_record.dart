@@ -18,7 +18,7 @@ class UserRecord{
   late int age;
   late Classification classification;
   late Major major;
-  late Map<ProgLanguage, bool> progLanguage;
+  late Map<ProgLanguage, bool> progLanguages;
 
 
 UserRecord({
@@ -26,11 +26,15 @@ UserRecord({
     this.password= '',
     this.name= '',
     this.phone= '',
-    this.age= '',
-    this.classification= '',
-    this.major= '',
-    this.email= '',
-    this.email= '',
+    this.age= 0,
+    this.classification= Classification.firstYear,
+    this.major= Major.cs,
 
   })
+  {
+    progLanguages = {};
+    for(var e in ProgLanguage.values){
+      progLanguages[e] = false;
+    }
+  }
 }
