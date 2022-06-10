@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lesson2/model/course.dart';
+import 'package:lesson2/viewscreen/cardlist_screen.dart';
 import 'package:lesson2/viewscreen/counterdemo_screen.dart';
 
 class StartScreen extends StatefulWidget {
@@ -13,7 +15,6 @@ class StartScreen extends StatefulWidget {
 }
 
 class _StartState extends State<StartScreen> {
-  
   late _Controller con;
 
   @override
@@ -27,19 +28,24 @@ class _StartState extends State<StartScreen> {
   Widget build(BuildContext context) {
     print('************ StartScreen: build()');
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Start Screen'),
-        ),
-        body: Column(
-          children: [
-            ElevatedButton(
-              onPressed: con.counterDemo,
-              child: const Text('Counter Demo'),
-            ),
-          ],
-        ),
-        );
+      appBar: AppBar(
+        title: const Text('Start Screen'),
+      ),
+      body: Column(
+        children: [
+          ElevatedButton(
+            onPressed: con.counterDemo,
+            child: const Text('Counter Demo'),
+          ),
+          ElevatedButton(
+            onPressed: con.cardlistDemo,
+            child: const Text('Card list Demo'),
+          ),
+        ],
+      ),
+    );
   }
+
   @override
   void dispose() {
     print('************ StartScreen: dispose()');
@@ -51,7 +57,15 @@ class _Controller {
   late _StartState state;
   _Controller(this.state);
 
-  void counterDemo(){
+  void counterDemo() {
     Navigator.pushNamed(state.context, CounterDemoScreen.routeName);
+  }
+
+  void cardlistDemo() {
+    Navigator.pushNamed(
+      state.context,
+      CardListScreen.routeName,
+      arguments: courseList,
+    );
   }
 }

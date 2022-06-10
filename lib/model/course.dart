@@ -14,10 +14,16 @@ class Course {
 
 var courseList = [
   Course(
+    number: 'CMSC 00000',
+    title: 'Programming 0',
+    prereq: 'CMSC 00000',
+    imageURL: 'http://cs.uco.edu/files/lion.jpg',
+  ),
+  Course(
     number: 'CMSC 1613',
     title: 'Programming I',
     prereq: 'CMSC 1513',
-    imageURL: 'https://m.media-amazon.com/images/I/517rMbNEp+L._AC_UY436_FMwebp_QL65_.jpg',
+    imageURL: 'https://m.media-amaon.com/images/I/517rMbNEp+L._AC_UY436_FMwebp_QL65_.jpg',
   ),
    Course(
     number: 'CMSC 3103',
